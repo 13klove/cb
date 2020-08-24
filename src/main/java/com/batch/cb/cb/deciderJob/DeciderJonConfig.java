@@ -1,5 +1,6 @@
 package com.batch.cb.cb.deciderJob;
 
+import com.batch.cb.cb.deciderJob.decider.OddDecider;
 import com.batch.cb.cb.deciderJob.deciderStepTask.StepDeciderStepa;
 import com.batch.cb.cb.deciderJob.deciderStepTask.StepDeciderStepb;
 import com.batch.cb.cb.deciderJob.deciderStepTask.StepDeciderStepc;
@@ -9,6 +10,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.flow.JobExecutionDecider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,7 +29,16 @@ public class DeciderJonConfig {
     public Job deciderJob(){
         return jobBuilderFactory.get("deciderJob")
                 .start(step1())
+                .next(decider())
+                .from(decider()).on("EVEN").to(step2())
+                .from(decider()).on("ODD").to(step3())
+                .end()
                 .build();
+    }
+
+    @Bean
+    public JobExecutionDecider decider(){
+        return new OddDecider();
     }
 
     @Bean
