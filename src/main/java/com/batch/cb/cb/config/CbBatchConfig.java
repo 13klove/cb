@@ -5,8 +5,10 @@ import org.springframework.batch.core.configuration.annotation.DefaultBatchConfi
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
@@ -14,15 +16,21 @@ import javax.sql.DataSource;
 public class CbBatchConfig extends DefaultBatchConfigurer {
 
 	private final DataSource dataSource;
+	private final EntityManagerFactory entityManagerFactory;
 
-	//jobRepository는 다른 트렌젝션이 읽거나 할때 수정이 안되는 ISOLATION_SERIALIZABLE 상태라 에러가 난다. 햐여
-	//DefaultBatchConfigurer를 상속 받고 ISOLATION_READ_COMMITTED로 수정
-	//추가로 상속을 안받고 bean으로 재정의 한 경우.... 똑같이 에러가 난다.
+	@Override
+	public PlatformTransactionManager getTransactionManager() {
+		return new JpaTransactionManager(entityManagerFactory);
+	}
+
+	//	jobRepository는 다른 트렌젝션이 읽거나 할때 수정이 안되는 ISOLATION_SERIALIZABLE 상태라 에러가 난다. 햐여
+	//	DefaultBatchConfigurer를 상속 받고 ISOLATION_READ_COMMITTED로 수정
+	//	추가로 상속을 안받고 bean으로 재정의 한 경우.... 똑같이 에러가 난다.
 	@Override
 	protected JobRepository createJobRepository() throws Exception {
 		JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
 		factory.setDataSource(dataSource);
-		factory.setTransactionManager(new DataSourceTransactionManager(dataSource));
+		factory.setTransactionManager(getTransactionManager());
 		factory.setIsolationLevelForCreate("ISOLATION_READ_COMMITTED");
 		factory.setTablePrefix("BATCH_");
 		factory.afterPropertiesSet();

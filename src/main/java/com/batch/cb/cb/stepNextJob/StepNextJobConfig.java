@@ -36,7 +36,7 @@ public class StepNextJobConfig {
     @Bean
     @JobScope
     public Step step1(){
-        return stepBuilderFactory.get("step1")
+        return stepBuilderFactory.get("stepNext1")
                 .tasklet(stepNextStepa)
                 .build();
     }
@@ -44,7 +44,7 @@ public class StepNextJobConfig {
     @Bean
     @JobScope
     public Step step2(){
-        return stepBuilderFactory.get("step2")
+        return stepBuilderFactory.get("stepNext2")
                 .tasklet(stepNextStepb)
                 .build();
     }
@@ -52,7 +52,7 @@ public class StepNextJobConfig {
     @Bean
     @JobScope
     public Step step3(){
-        return stepBuilderFactory.get("step3")
+        return stepBuilderFactory.get("stepNext3")
                 .tasklet(stepNextStepc)
                 .build();
     }

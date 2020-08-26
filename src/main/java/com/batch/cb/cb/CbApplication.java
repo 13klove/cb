@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //https://marobiana.tistory.com/133
 //https://jojoldu.tistory.com/487
 //quartz - https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/BootBatchBatchConfig.java
+
+//https://bkim.tistory.com/23
 public class CbApplication {
 
     public static void main(String[] args) {

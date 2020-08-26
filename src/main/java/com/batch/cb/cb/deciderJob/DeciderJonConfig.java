@@ -28,10 +28,10 @@ public class DeciderJonConfig {
     @Bean
     public Job deciderJob(){
         return jobBuilderFactory.get("deciderJob")
-                .start(step1())
+                .start(deciderStep1())
                 .next(decider())
-                .from(decider()).on("EVEN").to(step2())
-                .from(decider()).on("ODD").to(step3())
+                .from(decider()).on("EVEN").to(deciderStep2())
+                .from(decider()).on("ODD").to(deciderStep3())
                 .end()
                 .build();
     }
@@ -42,21 +42,21 @@ public class DeciderJonConfig {
     }
 
     @Bean
-    public Step step1(){
+    public Step deciderStep1(){
         return stepBuilderFactory.get("deciderStep1")
                 .tasklet(stepDeciderStepa)
                 .build();
     }
 
     @Bean
-    public Step step2(){
+    public Step deciderStep2(){
         return stepBuilderFactory.get("deciderStep2")
                 .tasklet(stepDeciderStepb)
                 .build();
     }
 
     @Bean
-    public Step step3(){
+    public Step deciderStep3(){
         return stepBuilderFactory.get("deciderStep3")
                 .tasklet(stepDeciderStepc)
                 .build();
