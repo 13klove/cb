@@ -1,14 +1,17 @@
 package com.batch.cb.cb.libraryClassificationJob;
 
 import com.batch.cb.cb.domain.bigLocal.repository.BigLocalJpaRepository;
+import com.batch.cb.cb.domain.library.entity.Library;
 import com.batch.cb.cb.domain.library.repository.LibraryJpaRepository;
 import com.batch.cb.cb.domain.libraryType.repository.LibraryTypeJpaRepository;
 import com.batch.cb.cb.domain.smallLocal.repository.SmallLocalJpaRepository;
 import com.batch.cb.cb.domain.tempLibrary.dto.TempLibraryDto;
 import com.batch.cb.cb.domain.tempLibrary.repository.TempLibraryJpaRepository;
 import com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.reader.LibraryCsvReader;
+import com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.reader.LibraryDbReader;
 import com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.task.LibraryDataProcessTask;
 import com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.writer.LibraryCsvWriter;
+import com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.writer.LibraryDbWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -21,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 @Slf4j
 @Transactional
@@ -37,6 +41,7 @@ public class LibraryClassificationConfig {
     private final SmallLocalJpaRepository smallLocalJpaRepository;
     private final LibraryTypeJpaRepository libraryTypeJpaRepository;
     private final EntityManager entityManager;
+    private final EntityManagerFactory entityManagerFactory;
     private static final int libraryCsvSaveStepChunk = 100;
 
     @Bean
@@ -44,6 +49,7 @@ public class LibraryClassificationConfig {
         return jobBuilderFactory.get("librarySaveJob")
                 .start(libraryCsvSaveStep())
                 .next(libraryDataProcessStep())
+                .next(libraryDbToCsvStep())
                 .incrementer(new RunIdIncrementer())
                 .build();
     }
@@ -64,6 +70,15 @@ public class LibraryClassificationConfig {
     public Step libraryDataProcessStep(){
         return stepBuilderFactory.get("libraryDataProcessStep")
                 .tasklet(new LibraryDataProcessTask(tempLibraryJpaRepository, libraryJpaRepository, bigLocalJpaRepository, smallLocalJpaRepository, libraryTypeJpaRepository, entityManager))
+                .build();
+    }
+
+    @Bean
+    public Step libraryDbToCsvStep(){
+        return stepBuilderFactory.get("libraryDbToCsvStep")
+                .<Library, Library>chunk(libraryCsvSaveStepChunk)
+                .reader(new LibraryDbReader(entityManagerFactory).jpaPagingItemReader())
+                .writer(new LibraryDbWriter())
                 .build();
     }
 
