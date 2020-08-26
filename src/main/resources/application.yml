@@ -4,7 +4,7 @@ spring.batch.job.names: ${job.name:NONE}
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true

@@ -24,7 +24,7 @@ public class LibraryCsvReader {
 
         DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer();
         delimitedLineTokenizer.setNames("libraryNm", "bigLocal", "smallLocal", "libraryType");
-        delimitedLineTokenizer.setStrict(false);
+        delimitedLineTokenizer.setStrict(false);//이거를 해야 csv의 컬럼을 정확히 일치 안시켜도 된다. csv에는 컬럼이 4개 이상이여도 된다.
 
         BeanWrapperFieldSetMapper<TempLibraryDto> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
         beanWrapperFieldSetMapper.setTargetType(TempLibraryDto.class);
