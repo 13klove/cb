@@ -1,6 +1,7 @@
 package com.batch.cb.cb.libraryClassificationJob;
 
 import com.batch.cb.cb.domain.bigLocal.repository.BigLocalJpaRepository;
+import com.batch.cb.cb.domain.library.dto.LibraryDto;
 import com.batch.cb.cb.domain.library.entity.Library;
 import com.batch.cb.cb.domain.library.repository.LibraryJpaRepository;
 import com.batch.cb.cb.domain.libraryType.repository.LibraryTypeJpaRepository;
@@ -76,9 +77,9 @@ public class LibraryClassificationConfig {
     @Bean
     public Step libraryDbToCsvStep(){
         return stepBuilderFactory.get("libraryDbToCsvStep")
-                .<Library, Library>chunk(libraryCsvSaveStepChunk)
+                .<LibraryDto, LibraryDto>chunk(libraryCsvSaveStepChunk)
                 .reader(new LibraryDbReader(entityManagerFactory).jpaPagingItemReader())
-                .writer(new LibraryDbWriter())
+                .writer(new LibraryDbWriter().libraryFlatFileItemWriter())
                 .build();
     }
 

@@ -9,6 +9,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.core.io.FileSystemResource;
 
+import java.awt.*;
 import java.io.File;
 
 @Slf4j
@@ -16,7 +17,9 @@ public class LibraryCsvReader {
 
     public FlatFileItemReader<TempLibraryDto> libraryCsvReader(){
         FlatFileItemReader<TempLibraryDto> csvReader = new FlatFileItemReader<>();
+        //csvReader.setResource(new FileSystemResource("C:\\Users\\hbjang\\Desktop\\temp.csv"));
         csvReader.setResource(new FileSystemResource("C:\\Users\\hbjang\\Desktop\\temp.csv"));
+
         csvReader.setLinesToSkip(1);
         csvReader.setEncoding("MS949");
 

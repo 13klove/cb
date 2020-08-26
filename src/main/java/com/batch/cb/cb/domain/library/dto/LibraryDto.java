@@ -11,8 +11,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class LibraryDto {
 
-    private Long tempLibraryId;
-
     private String libraryNm;
+    private String bigLocal;
+    private String smallLocal;
+    private String libraryType;
 
 }

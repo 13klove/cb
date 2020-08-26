@@ -1,19 +1,39 @@
 
 package com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.writer;
 
+import com.batch.cb.cb.domain.library.dto.LibraryDto;
 import com.batch.cb.cb.domain.library.entity.Library;
+import com.sun.deploy.util.StringUtils;
+import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
+import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.core.io.FileSystemResource;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 //https://howtodoinjava.com/spring-batch/flatfileitemwriter-write-to-csv-file/
 public class LibraryDbWriter  {
 
-    public FlatFileItemWriter<Library> libraryFlatFileItemWriter(){
-        FlatFileItemWriter<Library> flatFileItemWriter = new FlatFileItemWriter<>();
+    private static final List<String> header = Arrays.asList("도서관명", "시도명", "시군구명");
+
+    public FlatFileItemWriter<LibraryDto> libraryFlatFileItemWriter(){
+        FlatFileItemWriter<LibraryDto> flatFileItemWriter = new FlatFileItemWriter<>();
         flatFileItemWriter.setResource(new FileSystemResource("C:\\Users\\hbjang\\Desktop\\result.csv"));
         flatFileItemWriter.setAppendAllowed(true);
+        flatFileItemWriter.setEncoding("euc-kr");
+        flatFileItemWriter.setHeaderCallback(a->{a.write(StringUtils.join(header, ","));});
 
-        //File f = new File("C:\\Users\\hbjang\\Desktop\\result.csv");
+        DelimitedLineAggregator<LibraryDto> delimitedLineAggregator = new DelimitedLineAggregator<>();
+        delimitedLineAggregator.setDelimiter(",");
+        flatFileItemWriter.setLineAggregator(delimitedLineAggregator);
+        BeanWrapperFieldExtractor<LibraryDto> beanWrapperFieldExtractor = new BeanWrapperFieldExtractor<>();
+        beanWrapperFieldExtractor.setNames(new String[]{"libraryNm", "bigLocal", "smallLocal", "libraryType"});
+        delimitedLineAggregator.setFieldExtractor(beanWrapperFieldExtractor);
+
         return flatFileItemWriter;
     }
 
