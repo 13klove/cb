@@ -18,7 +18,6 @@ public class LibraryCsvWriter implements ItemWriter<TempLibraryDto> {
     public void write(List<? extends TempLibraryDto> list) throws Exception {
         List<TempLibrary> tempLibraries = new ArrayList<>();
         list.forEach(a->{
-            System.out.println(a.getBigLocal());
             tempLibraries.add(TempLibrary.createTempLibrary(a.getLibraryNm(), a.getBigLocal(), a.getSmallLocal(), a.getLibraryType()));
         });
         tempLibraryJpaRepository.saveAll(tempLibraries);

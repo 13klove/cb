@@ -2,18 +2,14 @@
 package com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.writer;
 
 import com.batch.cb.cb.domain.library.dto.LibraryDto;
-import com.batch.cb.cb.domain.library.entity.Library;
 import com.sun.deploy.util.StringUtils;
-import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.core.io.FileSystemResource;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 //https://howtodoinjava.com/spring-batch/flatfileitemwriter-write-to-csv-file/
 public class LibraryDbWriter  {

@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LibraryDataProcessTask implements Tasklet {
 
+    private final EntityManager entityManager;
     private final TempLibraryJpaRepository tempLibraryJpaRepository;
     private final LibraryJpaRepository libraryJpaRepository;
     private final BigLocalJpaRepository bigLocalJpaRepository;
     private final SmallLocalJpaRepository smallLocalJpaRepository;
     private final LibraryTypeJpaRepository libraryTypeJpaRepository;
-    private final EntityManager entityManager;
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
