@@ -1,7 +1,6 @@
 package com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.reader;
 
 import com.batch.cb.cb.domain.library.dto.LibraryDto;
-import com.batch.cb.cb.domain.library.entity.Library;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
