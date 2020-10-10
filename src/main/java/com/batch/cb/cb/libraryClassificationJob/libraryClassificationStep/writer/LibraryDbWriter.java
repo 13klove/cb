@@ -2,7 +2,8 @@
 package com.batch.cb.cb.libraryClassificationJob.libraryClassificationStep.writer;
 
 import com.batch.cb.cb.domain.library.dto.LibraryDto;
-import com.sun.deploy.util.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
