@@ -14,7 +14,7 @@ import java.util.List;
 //https://howtodoinjava.com/spring-batch/flatfileitemwriter-write-to-csv-file/
 public class LibraryDbWriter  {
 
-    private static final List<String> header = Arrays.asList("도서관명", "시도명", "시군구명");
+    private static final List<String> header = Arrays.asList("도서관명", "시도명", "시군구명", "도서관 타입");
 
     public FlatFileItemWriter<LibraryDto> libraryFlatFileItemWriter(){
         FlatFileItemWriter<LibraryDto> flatFileItemWriter = new FlatFileItemWriter<>();
