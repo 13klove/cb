@@ -7,6 +7,8 @@ import com.google.common.collect.Lists;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Getter
@@ -39,6 +41,11 @@ public class RollCharacter extends BaseDate {
         return new RollCharacter(characterName, tier);
     }
 
+    public void updateRollCharacter(String characterName, Integer tier){
+        this.characterName = characterName;
+        this.tier = tier;
+    }
+
     public void addRollSkill(RollSkill rollSkill){
         rollSkills.add(rollSkill);
         rollSkill.changeRollCharacter(this);
@@ -55,5 +62,19 @@ public class RollCharacter extends BaseDate {
 
     public void addRollPositions(List<RollPosition> rollPositions){
         rollPositions.stream().forEach(a->addRollPosition(a));
+    }
+
+    public void changeRollPositions(List<RollPosition> rollPositions){
+        this.rollPositions = Lists.newArrayList();
+        rollPositions.stream().forEach(a->addRollPosition(a));
+    }
+
+    public void updateRollSkill(List<RollSkill> rollSkills) {
+        Collections.sort(this.getRollSkills(), Comparator.comparing(RollSkill::getSkillName));
+        Collections.sort(rollSkills, Comparator.comparing(RollSkill::getSkillName));
+        for(int i=0;i<rollSkills.size();i++){
+            RollSkill crwRollSkill = rollSkills.get(i);
+            this.getRollSkills().get(i).updateRollSkill(crwRollSkill.getSkillName(), crwRollSkill.getSkillType());
+        }
     }
 }

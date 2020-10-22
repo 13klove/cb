@@ -1,6 +1,11 @@
 package com.batch.cb.cb.rollCampDetailJob.writer;
 
-import org.springframework.batch.item.support.ListItemWriter;
+import org.springframework.batch.item.database.JpaItemWriter;
 
-public class RollCampDetailWriter extends ListItemWriter {
+public class RollCampDetailWriter {
+
+    public JpaItemWriter RollCam(){
+        return new JpaItemWriter<>();
+    }
+
 }

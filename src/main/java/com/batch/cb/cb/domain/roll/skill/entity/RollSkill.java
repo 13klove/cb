@@ -39,6 +39,11 @@ public class RollSkill extends BaseDate {
         return new RollSkill(skillName, skillType);
     }
 
+    public void updateRollSkill(String skillName, SkillType skillType){
+        this.skillName = skillName;
+        this.skillType = skillType;
+    }
+
     public void smRollCharacterChange(RollCharacter rollCharacter){
         rollCharacter.addRollSkill(this);
     }
