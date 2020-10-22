@@ -4,6 +4,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+
 @Component
 public class CrwConfig {
 
@@ -13,7 +17,7 @@ public class CrwConfig {
 	}
 	
 	@Bean(name="httpClient")
-	public CloseableHttpClient getHttpClient(){
+	public CloseableHttpClient getHttpClient() throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
 		return HttpClientFactory.httpClient(50, 3000);
 	}	
 	
