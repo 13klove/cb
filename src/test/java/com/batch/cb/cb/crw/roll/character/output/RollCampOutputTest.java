@@ -1,6 +1,6 @@
-package com.batch.cb.cb.crw.roll.output;
+package com.batch.cb.cb.crw.roll.character.output;
 
-import com.batch.cb.cb.crw.roll.parser.RollCampParser;
+import com.batch.cb.cb.crw.roll.character.parser.RollCampParser;
 import com.batch.cb.cb.util.crw.CrwVo;
 import com.batch.cb.cb.util.crw.HttpClientFactory;
 import org.apache.http.impl.client.CloseableHttpClient;

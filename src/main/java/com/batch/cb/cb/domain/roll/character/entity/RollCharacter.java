@@ -22,7 +22,7 @@ public class RollCharacter extends BaseDate {
 
     private String characterName;
 
-    private Integer tear;
+    private Integer tier;
 
     @OneToMany(mappedBy = "rollCharacter", cascade = CascadeType.ALL)
     private List<RollSkill> rollSkills = Lists.newArrayList();
@@ -30,13 +30,13 @@ public class RollCharacter extends BaseDate {
     @OneToMany(mappedBy = "rollCharacter", cascade = CascadeType.ALL)
     private List<RollPosition> rollPositions = Lists.newArrayList();
 
-    protected RollCharacter(String characterName, Integer tear) {
+    protected RollCharacter(String characterName, Integer tier) {
         this.characterName = characterName;
-        this.tear = tear;
+        this.tier = tier;
     }
 
-    public static RollCharacter createRollCharacter(String characterName, Integer tear){
-        return new RollCharacter(characterName, tear);
+    public static RollCharacter createRollCharacter(String characterName, Integer tier){
+        return new RollCharacter(characterName, tier);
     }
 
     public void addRollSkill(RollSkill rollSkill){

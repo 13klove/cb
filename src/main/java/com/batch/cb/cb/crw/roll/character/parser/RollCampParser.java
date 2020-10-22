@@ -1,4 +1,4 @@
-package com.batch.cb.cb.crw.roll.parser;
+package com.batch.cb.cb.crw.roll.character.parser;
 
 import com.batch.cb.cb.util.crw.CrwParser;
 import com.batch.cb.cb.util.crw.CrwVo;

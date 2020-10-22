@@ -1,4 +1,4 @@
-package com.batch.cb.cb.crw.roll.output;
+package com.batch.cb.cb.crw.roll.character.output;
 
 import com.batch.cb.cb.util.crw.CrwOutput;
 import org.jsoup.Jsoup;

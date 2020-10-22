@@ -1,4 +1,4 @@
-package com.batch.cb.cb.crw.roll.parser;
+package com.batch.cb.cb.crw.roll.character.parser;
 
 import com.batch.cb.cb.util.crw.CrwVo;
 import com.batch.cb.cb.util.crw.HttpClientFactory;
@@ -13,7 +13,6 @@ public class RollCampParserTest {
     public void rollCampParserTest() throws Exception{
         CloseableHttpClient closeableHttpClient = HttpClientFactory.httpClient(1, 5000);
         CrwVo crwVo = CrwVo.builder().client(closeableHttpClient).build();
-
         RollCampParser parser = new RollCampParser();
         parser.read(crwVo);
 

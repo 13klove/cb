@@ -1,7 +1,8 @@
 package com.batch.cb.cb.rollCampDetailJob.task;
 
-import com.batch.cb.cb.crw.roll.output.RollCampOutput;
-import com.batch.cb.cb.crw.roll.parser.RollCampParser;
+
+import com.batch.cb.cb.crw.roll.character.output.RollCampOutput;
+import com.batch.cb.cb.crw.roll.character.parser.RollCampParser;
 import com.batch.cb.cb.util.crw.CrwVo;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.impl.client.CloseableHttpClient;

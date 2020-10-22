@@ -5,8 +5,8 @@ public enum PositionType {
     TOP("탑"),
     JUNGLE("정글"),
     MID("미드"),
-    BOTTOM("바텀"),
-    SUPPORT("서폿");
+    ADC("바텀"),
+    SUPPORT("서포터");
 
     private String desc;
 

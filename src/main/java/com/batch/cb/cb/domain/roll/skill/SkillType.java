@@ -1,5 +1,7 @@
 package com.batch.cb.cb.domain.roll.skill;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum SkillType {
 
     PASSIVE("페시브"),
@@ -14,5 +16,11 @@ public enum SkillType {
 
     public String getDesc() {
         return desc;
+    }
+
+    public static SkillType keyValudOf(String data){
+        if(StringUtils.isEmpty(data))return SkillType.PASSIVE;
+        else if(data.equals("R")) return SkillType.ULTIMATE;
+        else return SkillType.SKILL;
     }
 }
