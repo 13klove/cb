@@ -46,8 +46,8 @@ public class RollCampDetailTestWriter extends JpaItemWriter<RollCharacter> imple
             }else{
                 rollCharacter1.updateRollCharacter(a.getCharacterName(), a.getTier());
                 rollCharacter1.updateRollSkill(a.getRollSkills());
-                rollPositionRepository.deleteAll(rollCharacter1.getRollPositions());
-                rollCharacter1.addRollPositions(a.getRollPositions());
+                //삭제가 안되는 이유를... 모르겠다...
+                rollPositionRepository.deleteAll();
                 return rollCharacter1;
             }
         }).collect(Collectors.toList());

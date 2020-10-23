@@ -23,13 +23,11 @@ public class RollCampDetailTestReader implements ItemReader<RollCharacter>, Step
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
-        System.out.println("1번째로 1번만 실행");
         readList = getListData();
     }
 
     @Override
     public RollCharacter read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        System.out.println("2");
         return !this.readList.isEmpty()?readList.remove(0):null;
     }
 

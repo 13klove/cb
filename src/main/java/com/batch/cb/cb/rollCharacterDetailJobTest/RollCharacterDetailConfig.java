@@ -41,9 +41,6 @@ public class RollCharacterDetailConfig {
 
     @Bean
     public Step getTestStep(){
-//        JpaItemWriter<RollCharacter> writer = new JpaItemWriter<>();
-//        writer.setEntityManagerFactory(entityManagerFactory);
-
         return stepBuilderFactory.get("testStepRoll")
                 .<RollCharacter, RollCharacter>chunk(rollCampDetailStepChunk)
                 .reader(new RollCampDetailTestReader())
