@@ -11,4 +11,6 @@ public interface RollCharacterDslRepository {
 
     List<RollCharacter> findRollCharacters();
 
+    List<RollCharacter> findRollCharacters(List<String> characterNames);
+
 }

@@ -40,12 +40,28 @@ public class RollCharacterDslRepositoryImpl implements RollCharacterDslRepositor
                 .join(rollCharacter.rollSkills, rollSkill).fetchJoin()
                 .fetch();
 
-        fetch.stream().forEach(a->a.getRollPositions());
+        fetch.stream().forEach(a->a.getRollPositions().forEach(b->b.getRollPositionId()));
+        return fetch;
+    }
+
+    @Override
+    public List<RollCharacter> findRollCharacters(List<String> characterNames) {
+        List<RollCharacter> fetch = jpaQueryFactory.selectFrom(rollCharacter)
+                .distinct()
+                .join(rollCharacter.rollSkills, rollSkill).fetchJoin()
+                .where(whereCharacterNames(characterNames))
+                .fetch();
+
+        fetch.stream().forEach(a->a.getRollPositions().forEach(b->b.getRollPositionId()));
         return fetch;
     }
 
     private BooleanExpression whereCharacterName(String characterName) {
         return characterName==null?null:rollCharacter.characterName.eq(characterName);
+    }
+
+    private BooleanExpression whereCharacterNames(List<String> characterNames) {
+        return characterNames.isEmpty()||characterNames==null?null:rollCharacter.characterName.in(characterNames);
     }
 
 }

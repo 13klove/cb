@@ -6,6 +6,7 @@ import com.batch.cb.cb.domain.roll.position.repository.RollPositionRepository;
 import com.batch.cb.cb.rollCampDetailJob.processor.RollCampDetailProcessor;
 import com.batch.cb.cb.rollCampDetailJob.reader.RollCampDetailReader;
 import com.batch.cb.cb.rollCampDetailJob.task.RollCampSearchTask;
+import com.batch.cb.cb.rollCampDetailJob.writer.RollCampDetailWriter;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.batch.core.Job;
@@ -13,7 +14,6 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,13 +52,11 @@ public class RollCampDetailConfig {
 
     @Bean
     public Step saveRollCampDetailStep(){
-        JpaItemWriter<RollCharacter> writer = new JpaItemWriter<>();
-        writer.setEntityManagerFactory(entityManagerFactory);
         return stepBuilderFactory.get("saveRollCampDetailStep")
                 .<String, RollCharacter>chunk(rollCampDetailStepChunk)
                 .reader(new RollCampDetailReader())
-                .processor(new RollCampDetailProcessor(httpClient, rollCharacterRepository, rollPositionRepository))
-                .writer(writer)
+                .processor(new RollCampDetailProcessor(httpClient))
+                .writer(new RollCampDetailWriter(rollCharacterRepository, rollPositionRepository, entityManagerFactory))
                 .build();
     }
 

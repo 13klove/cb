@@ -1,4 +1,4 @@
-package com.batch.cb.cb.rollCampDetailJob.writer;
+package com.batch.cb.cb.rollCharacterDetailJobTest.writer;
 
 import com.batch.cb.cb.domain.roll.character.entity.RollCharacter;
 import com.batch.cb.cb.domain.roll.character.repository.RollCharacterRepository;
@@ -16,7 +16,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class RollCampDetailWriter extends JpaItemWriter<RollCharacter> implements StepExecutionListener {
+public class RollCampDetailTestWriter extends JpaItemWriter<RollCharacter> implements StepExecutionListener {
 
     private final RollCharacterRepository rollCharacterRepository;
     private final RollPositionRepository rollPositionRepository;
